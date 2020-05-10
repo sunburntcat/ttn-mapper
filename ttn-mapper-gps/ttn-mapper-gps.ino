@@ -9,11 +9,11 @@
  *******************************************************************************/
 
 #include <lmic.h>
-#include "OLED_Display.h"
+#include "Serial_Display.h"
 #include "gps.h"
 
 // Display
-OLED_Display display = OLED_Display();
+Serial_Display display = Serial_Display();
 
 // Init radio
 extern osjob_t init_lora_job;
@@ -33,9 +33,10 @@ static void update_display(osjob_t* j)
 }
 
 void setup() {
-  // Display splash screen
-  display.init();
-  delay(500);
+  Serial.begin(115200);
+  delay(1000); // Wait one second for Serial to catch up
+  Serial.println();
+  Serial.println("Welcome to Telokanda Weather Balloons");
 
   // initialize the scheduler
   os_init();
